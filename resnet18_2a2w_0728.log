@@ -1,0 +1,591 @@
+**********/workspace/script/jobs/auto_train/pre_train.py**********
+**********cache_algo_code begin**********
+['XFY_MQBench', '.virtual_documents']
+['XFY_MQBench']
+**********cache_algo_code end**********
+No need cache dataset 4b155e5a-3386-4617-826b-2e8ca462e104 to local dir.
+**********/workspace/script/jobs/auto_train/pre_train.py**********
+2023-07-28 13:52:55.930 run.py 20:	===================== Begin ======================
+2023-07-28 13:52:55.932 run.py 37:	Namespace(bits=2, dataset_dir='/workspace/dataset', dist_url='tcp://localhost:23456', marker_file='', nnodes=1, node_rank=0, nproc_per_node=4, output_dir='/workspace/service/outputs/f4ff5ba0-2642-41fb-9d7e-e36b3c30e8ed', tensorboard_dir='/workspace/service/outputs/f4ff5ba0-2642-41fb-9d7e-e36b3c30e8ed/tensorboard', train_data_path='B224_8fn_20230412_lowiso_v224U_B133_52L_SPLIT0.9', valid_data_path='B224_8fn_20230412_lowiso_v224U_B133_52L_SPLIT0.1')
+2023-07-28 13:52:55.932 run.py 40:	Load configs: 0.0017873189935926348s
+2023-07-28 13:52:55.932 run.py 42:	===================== Install Packages and Pretrain_model ======================
+Looking in indexes: http://cmc-cd-mirror.rnd.huawei.com/pypi/simple/, http://cmc-cd-mirror.rnd.huawei.com/pypi/simple/
+Requirement already satisfied: pip in /opt/conda/lib/python3.8/site-packages (21.2.4)
+Collecting pip
+  Downloading http://cmc-cd-mirror.rnd.huawei.com/pypi/packages/50/c2/e06851e8cc28dcad7c155f4753da8833ac06a5c704c109313b8d5a62968a/pip-23.2.1-py3-none-any.whl (2.1 MB)
+Installing collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 21.2.4
+    Uninstalling pip-21.2.4:
+      Successfully uninstalled pip-21.2.4
+Successfully installed pip-23.2.1
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+Looking in indexes: http://cmc-cd-mirror.rnd.huawei.com/pypi/simple/, http://cmc-cd-mirror.rnd.huawei.com/pypi/simple/
+Collecting onnx==1.7.0
+  Downloading http://cmc-cd-mirror.rnd.huawei.com/pypi/packages/aa/4a/4d84b43473cf4b89b2b1c214252f2a2ddb50354a86541d0733aa739d2921/onnx-1.7.0-cp38-cp38-manylinux1_x86_64.whl (7.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.4/7.4 MB 40.2 MB/s eta 0:00:00
+Collecting protobuf==3.19.0
+  Downloading http://cmc-cd-mirror.rnd.huawei.com/pypi/packages/69/ee/949eb6182636fdc4fa0e2fa02a94d79e21069d46b56d4f251d0ac39b5678/protobuf-3.19.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.1/1.1 MB 33.9 MB/s eta 0:00:00
+Requirement already satisfied: numpy in /opt/conda/lib/python3.8/site-packages (from onnx==1.7.0) (1.22.4)
+Requirement already satisfied: six in /opt/conda/lib/python3.8/site-packages (from onnx==1.7.0) (1.16.0)
+Requirement already satisfied: typing-extensions>=3.6.2.1 in /opt/conda/lib/python3.8/site-packages (from onnx==1.7.0) (4.3.0)
+DEPRECATION: torch-tensorrt 1.2.0a0 has a non-standard dependency specifier torch>=1.11.0+cu113<1.12.0. pip 23.3 will enforce this behaviour change. A possible replacement is to upgrade to a newer version of torch-tensorrt or contact the author to suggest that they release a version with a conforming dependency specifiers. Discussion can be found at https://github.com/pypa/pip/issues/12063
+Installing collected packages: protobuf, onnx
+  Attempting uninstall: protobuf
+    Found existing installation: protobuf 3.20.1
+    Uninstalling protobuf-3.20.1:
+      Successfully uninstalled protobuf-3.20.1
+  Attempting uninstall: onnx
+    Found existing installation: onnx 1.11.0
+    Uninstalling onnx-1.11.0:
+      Successfully uninstalled onnx-1.11.0
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+cudf 22.6.0a0+319.g97422602b8 requires protobuf<3.21.0a0,>=3.20.1, but you have protobuf 3.19.0 which is incompatible.
+Successfully installed onnx-1.7.0 protobuf-3.19.0
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+Looking in indexes: http://cmc-cd-mirror.rnd.huawei.com/pypi/simple/, http://cmc-cd-mirror.rnd.huawei.com/pypi/simple/
+Collecting torch==1.10.0
+  Downloading http://cmc-cd-mirror.rnd.huawei.com/pypi/packages/2e/4a/a9d5f56ad834c1273e335875d9c1240afe93dae984a727693b0b2ded3d59/torch-1.10.0-cp38-cp38-manylinux1_x86_64.whl (881.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 881.9/881.9 MB 10.9 MB/s eta 0:00:00
+Collecting torchvision==0.11.1
+  Downloading http://cmc-cd-mirror.rnd.huawei.com/pypi/packages/8a/3e/d28ffd98b32b68ec6231a75ade1e2113ae56eb0382dcd7ec721b0fb197c4/torchvision-0.11.1-cp38-cp38-manylinux1_x86_64.whl (23.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 23.3/23.3 MB 64.1 MB/s eta 0:00:00
+Requirement already satisfied: typing-extensions in /opt/conda/lib/python3.8/site-packages (from torch==1.10.0) (4.3.0)
+Requirement already satisfied: numpy in /opt/conda/lib/python3.8/site-packages (from torchvision==0.11.1) (1.22.4)
+Requirement already satisfied: pillow!=8.3.0,>=5.3.0 in /opt/conda/lib/python3.8/site-packages (from torchvision==0.11.1) (9.0.1)
+DEPRECATION: torch-tensorrt 1.2.0a0 has a non-standard dependency specifier torch>=1.11.0+cu113<1.12.0. pip 23.3 will enforce this behaviour change. A possible replacement is to upgrade to a newer version of torch-tensorrt or contact the author to suggest that they release a version with a conforming dependency specifiers. Discussion can be found at https://github.com/pypa/pip/issues/12063
+Installing collected packages: torch, torchvision
+  Attempting uninstall: torch
+    Found existing installation: torch 1.13.1+cu117
+    Uninstalling torch-1.13.1+cu117:
+      Successfully uninstalled torch-1.13.1+cu117
+  Attempting uninstall: torchvision
+    Found existing installation: torchvision 0.14.1+cu117
+    Uninstalling torchvision-0.14.1+cu117:
+      Successfully uninstalled torchvision-0.14.1+cu117
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+torch-tensorrt 1.2.0a0 requires torch>=1.11.0+cu113<1.12.0, but you have torch 1.10.0 which is incompatible.
+torchaudio 0.13.1+cu117 requires torch==1.13.1, but you have torch 1.10.0 which is incompatible.
+Successfully installed torch-1.10.0 torchvision-0.11.1
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+Looking in indexes: http://cmc-cd-mirror.rnd.huawei.com/pypi/simple/, http://cmc-cd-mirror.rnd.huawei.com/pypi/simple/
+Requirement already satisfied: prettytable in /opt/conda/lib/python3.8/site-packages (3.3.0)
+Requirement already satisfied: pyyaml in /opt/conda/lib/python3.8/site-packages (6.0)
+Collecting timm
+  Downloading http://cmc-cd-mirror.rnd.huawei.com/pypi/packages/29/90/94f5deb8d76e24a89813aef95e8809ca8fd7414490428480eda19b133d4a/timm-0.9.2-py3-none-any.whl (2.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.2/2.2 MB 13.3 MB/s eta 0:00:00
+Requirement already satisfied: wcwidth in /opt/conda/lib/python3.8/site-packages (from prettytable) (0.2.5)
+Requirement already satisfied: torch>=1.7 in /opt/conda/lib/python3.8/site-packages (from timm) (1.10.0)
+Requirement already satisfied: torchvision in /opt/conda/lib/python3.8/site-packages (from timm) (0.11.1)
+Collecting huggingface-hub (from timm)
+  Downloading http://cmc-cd-mirror.rnd.huawei.com/pypi/packages/7f/c4/adcbe9a696c135578cabcbdd7331332daad4d49b7c43688bc2d36b3a47d2/huggingface_hub-0.16.4-py3-none-any.whl (268 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 268.8/268.8 kB 129.1 MB/s eta 0:00:00
+Collecting safetensors (from timm)
+  Downloading http://cmc-cd-mirror.rnd.huawei.com/pypi/packages/85/50/60e0407a8d81ef05478c513778499dc569c2f3662ee959a28548c533e3f5/safetensors-0.3.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 44.2 MB/s eta 0:00:00
+Requirement already satisfied: typing-extensions in /opt/conda/lib/python3.8/site-packages (from torch>=1.7->timm) (4.3.0)
+Requirement already satisfied: filelock in /opt/conda/lib/python3.8/site-packages (from huggingface-hub->timm) (3.7.1)
+Requirement already satisfied: fsspec in /opt/conda/lib/python3.8/site-packages (from huggingface-hub->timm) (2022.5.0)
+Requirement already satisfied: requests in /opt/conda/lib/python3.8/site-packages (from huggingface-hub->timm) (2.27.1)
+Requirement already satisfied: tqdm>=4.42.1 in /opt/conda/lib/python3.8/site-packages (from huggingface-hub->timm) (4.64.0)
+Requirement already satisfied: packaging>=20.9 in /opt/conda/lib/python3.8/site-packages (from huggingface-hub->timm) (21.3)
+Requirement already satisfied: numpy in /opt/conda/lib/python3.8/site-packages (from torchvision->timm) (1.22.4)
+Requirement already satisfied: pillow!=8.3.0,>=5.3.0 in /opt/conda/lib/python3.8/site-packages (from torchvision->timm) (9.0.1)
+Requirement already satisfied: pyparsing!=3.0.5,>=2.0.2 in /opt/conda/lib/python3.8/site-packages (from packaging>=20.9->huggingface-hub->timm) (3.0.9)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /opt/conda/lib/python3.8/site-packages (from requests->huggingface-hub->timm) (1.26.9)
+Requirement already satisfied: certifi>=2017.4.17 in /opt/conda/lib/python3.8/site-packages (from requests->huggingface-hub->timm) (2022.9.24)
+Requirement already satisfied: charset-normalizer~=2.0.0 in /opt/conda/lib/python3.8/site-packages (from requests->huggingface-hub->timm) (2.0.12)
+Requirement already satisfied: idna<4,>=2.5 in /opt/conda/lib/python3.8/site-packages (from requests->huggingface-hub->timm) (3.3)
+DEPRECATION: torch-tensorrt 1.2.0a0 has a non-standard dependency specifier torch>=1.11.0+cu113<1.12.0. pip 23.3 will enforce this behaviour change. A possible replacement is to upgrade to a newer version of torch-tensorrt or contact the author to suggest that they release a version with a conforming dependency specifiers. Discussion can be found at https://github.com/pypa/pip/issues/12063
+Installing collected packages: safetensors, huggingface-hub, timm
+Successfully installed huggingface-hub-0.16.4 safetensors-0.3.1 timm-0.9.2
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+2023-07-28 13:54:42.217 run.py 51:	Install Packages: 106.28536734900263s
+2023-07-28 13:54:42.218 run.py 53:	===================== Start Training ======================
+2023-07-28 13:54:42.218 run.py 62:	PYTHONPATH='.' MASTER_ADDR='localhost' MASTER_PORT=3333 python application/imagenet_example/main.py --config-file ./configs/resnet18_w2a2_lsq.yaml --train_data /workspace/dataset/imagenet --val_data /workspace/dataset/imagenet --output_dir /workspace/service/outputs/f4ff5ba0-2642-41fb-9d7e-e36b3c30e8ed
+[MQBENCH] WARNING: onnxsim not found, if you want to use deploy_tengine, please install it.
+[MQBENCH] WARNING: onnxsim not found, if you want to use deploy_tengine, please install it.
+[MQBENCH] WARNING: onnxsim not found, if you want to use deploy_tengine, please install it.
+[MQBENCH] WARNING: onnxsim not found, if you want to use deploy_tengine, please install it.
+[MQBENCH] WARNING: onnxsim not found, if you want to use deploy_tengine, please install it.
+Namespace(arch='resnet18', backend=<BackendType.Academic: 'Academic'>, batch_size=512, config_file='./configs/resnet18_w2a2_lsq.yaml', deploy=False, dist_backend='nccl', dist_url='env://', distributed=True, epochs=100, evaluate=False, gpu=3, lr=5e-05, lr_scheduler='Cosine', model_ema=False, model_ema_decay=0.99996, model_ema_force_cpu=False, model_path='./pretrained/resnet18_imagenet.pth.tar', momentum=0.9, multiprocessing_distributed=True, not_quant=False, optim='adam', out_dir='/workspace/service/outputs/f4ff5ba0-2642-41fb-9d7e-e36b3c30e8ed/resnet18_w2a2_20230728-135444', output_dir='/workspace/service/outputs/f4ff5ba0-2642-41fb-9d7e-e36b3c30e8ed', pretrained=False, print_freq=100, quant=True, quantization={'enabled': True, 'type': 'Academic', 'qparams': {'w_observer': 'LSQObserver', 'w_fakequantize': 'LearnableFakeQuantize', 'w_qscheme': {'bit': 2, 'symmetry': True, 'per_channel': False, 'pot_scale': False}, 'a_observer': 'LSQObserver', 'a_fakequantize': 'LearnableFakeQuantize', 'a_qscheme': {'bit': 2, 'symmetry': False, 'per_channel': False, 'pot_scale': False}}}, rank=0, resume=None, seed=None, start_epoch=0, train_data='/workspace/dataset/imagenet', val_data='/workspace/dataset/imagenet', weight_decay=2.5e-05, workers=4, world_size=4)
+Use GPU: 3 for training
+Namespace(arch='resnet18', backend=<BackendType.Academic: 'Academic'>, batch_size=512, config_file='./configs/resnet18_w2a2_lsq.yaml', deploy=False, dist_backend='nccl', dist_url='env://', distributed=True, epochs=100, evaluate=False, gpu=2, lr=5e-05, lr_scheduler='Cosine', model_ema=False, model_ema_decay=0.99996, model_ema_force_cpu=False, model_path='./pretrained/resnet18_imagenet.pth.tar', momentum=0.9, multiprocessing_distributed=True, not_quant=False, optim='adam', out_dir='/workspace/service/outputs/f4ff5ba0-2642-41fb-9d7e-e36b3c30e8ed/resnet18_w2a2_20230728-135444', output_dir='/workspace/service/outputs/f4ff5ba0-2642-41fb-9d7e-e36b3c30e8ed', pretrained=False, print_freq=100, quant=True, quantization={'enabled': True, 'type': 'Academic', 'qparams': {'w_observer': 'LSQObserver', 'w_fakequantize': 'LearnableFakeQuantize', 'w_qscheme': {'bit': 2, 'symmetry': True, 'per_channel': False, 'pot_scale': False}, 'a_observer': 'LSQObserver', 'a_fakequantize': 'LearnableFakeQuantize', 'a_qscheme': {'bit': 2, 'symmetry': False, 'per_channel': False, 'pot_scale': False}}}, rank=0, resume=None, seed=None, start_epoch=0, train_data='/workspace/dataset/imagenet', val_data='/workspace/dataset/imagenet', weight_decay=2.5e-05, workers=4, world_size=4)
+Use GPU: 2 for training
+Namespace(arch='resnet18', backend=<BackendType.Academic: 'Academic'>, batch_size=512, config_file='./configs/resnet18_w2a2_lsq.yaml', deploy=False, dist_backend='nccl', dist_url='env://', distributed=True, epochs=100, evaluate=False, gpu=0, lr=5e-05, lr_scheduler='Cosine', model_ema=False, model_ema_decay=0.99996, model_ema_force_cpu=False, model_path='./pretrained/resnet18_imagenet.pth.tar', momentum=0.9, multiprocessing_distributed=True, not_quant=False, optim='adam', out_dir='/workspace/service/outputs/f4ff5ba0-2642-41fb-9d7e-e36b3c30e8ed/resnet18_w2a2_20230728-135444', output_dir='/workspace/service/outputs/f4ff5ba0-2642-41fb-9d7e-e36b3c30e8ed', pretrained=False, print_freq=100, quant=True, quantization={'enabled': True, 'type': 'Academic', 'qparams': {'w_observer': 'LSQObserver', 'w_fakequantize': 'LearnableFakeQuantize', 'w_qscheme': {'bit': 2, 'symmetry': True, 'per_channel': False, 'pot_scale': False}, 'a_observer': 'LSQObserver', 'a_fakequantize': 'LearnableFakeQuantize', 'a_qscheme': {'bit': 2, 'symmetry': False, 'per_channel': False, 'pot_scale': False}}}, rank=0, resume=None, seed=None, start_epoch=0, train_data='/workspace/dataset/imagenet', val_data='/workspace/dataset/imagenet', weight_decay=2.5e-05, workers=4, world_size=4)
+Use GPU: 0 for training
+Namespace(arch='resnet18', backend=<BackendType.Academic: 'Academic'>, batch_size=512, config_file='./configs/resnet18_w2a2_lsq.yaml', deploy=False, dist_backend='nccl', dist_url='env://', distributed=True, epochs=100, evaluate=False, gpu=1, lr=5e-05, lr_scheduler='Cosine', model_ema=False, model_ema_decay=0.99996, model_ema_force_cpu=False, model_path='./pretrained/resnet18_imagenet.pth.tar', momentum=0.9, multiprocessing_distributed=True, not_quant=False, optim='adam', out_dir='/workspace/service/outputs/f4ff5ba0-2642-41fb-9d7e-e36b3c30e8ed/resnet18_w2a2_20230728-135444', output_dir='/workspace/service/outputs/f4ff5ba0-2642-41fb-9d7e-e36b3c30e8ed', pretrained=False, print_freq=100, quant=True, quantization={'enabled': True, 'type': 'Academic', 'qparams': {'w_observer': 'LSQObserver', 'w_fakequantize': 'LearnableFakeQuantize', 'w_qscheme': {'bit': 2, 'symmetry': True, 'per_channel': False, 'pot_scale': False}, 'a_observer': 'LSQObserver', 'a_fakequantize': 'LearnableFakeQuantize', 'a_qscheme': {'bit': 2, 'symmetry': False, 'per_channel': False, 'pot_scale': False}}}, rank=0, resume=None, seed=None, start_epoch=0, train_data='/workspace/dataset/imagenet', val_data='/workspace/dataset/imagenet', weight_decay=2.5e-05, workers=4, world_size=4)
+Use GPU: 1 for training
+=> creating model 'resnet18'
+=> creating model 'resnet18'
+=> creating model 'resnet18'
+=> creating model 'resnet18'
+load pretrained checkpoint from: ./pretrained/resnet18_imagenet.pth.tar
+[MQBENCH] INFO: Quantize model Scheme: BackendType.Academic Mode: Training
+[MQBENCH] INFO: Weight Qconfig:
+    FakeQuantize: LearnableFakeQuantize Params: {}
+    Oberver:      LSQObserver Params: Symmetric: True / Bitwidth: 2 / Per channel: False / Pot scale: False / Extra kwargs: {}
+[MQBENCH] INFO: Activation Qconfig:
+    FakeQuantize: LearnableFakeQuantize Params: {}
+    Oberver:      LSQObserver Params: Symmetric: False / Bitwidth: 2 / Per channel: False / Pot scale: False / Extra kwargs: {}
+[MQBENCH] INFO: Replace module to qat module.
+[MQBENCH] INFO: Set layer conv1 to 8 bit.
+[MQBENCH] INFO: Set layer fc to 8 bit.
+load pretrained checkpoint from: ./pretrained/resnet18_imagenet.pth.tar
+load pretrained checkpoint from: ./pretrained/resnet18_imagenet.pth.tar
+[MQBENCH] INFO: Quantize model Scheme: BackendType.Academic Mode: Training
+[MQBENCH] INFO: Weight Qconfig:
+    FakeQuantize: LearnableFakeQuantize Params: {}
+    Oberver:      LSQObserver Params: Symmetric: True / Bitwidth: 2 / Per channel: False / Pot scale: False / Extra kwargs: {}
+[MQBENCH] INFO: Activation Qconfig:
+    FakeQuantize: LearnableFakeQuantize Params: {}
+    Oberver:      LSQObserver Params: Symmetric: False / Bitwidth: 2 / Per channel: False / Pot scale: False / Extra kwargs: {}
+[MQBENCH] INFO: Quantize model Scheme: BackendType.Academic Mode: Training
+[MQBENCH] INFO: Weight Qconfig:
+    FakeQuantize: LearnableFakeQuantize Params: {}
+    Oberver:      LSQObserver Params: Symmetric: True / Bitwidth: 2 / Per channel: False / Pot scale: False / Extra kwargs: {}
+[MQBENCH] INFO: Activation Qconfig:
+    FakeQuantize: LearnableFakeQuantize Params: {}
+    Oberver:      LSQObserver Params: Symmetric: False / Bitwidth: 2 / Per channel: False / Pot scale: False / Extra kwargs: {}
+load pretrained checkpoint from: ./pretrained/resnet18_imagenet.pth.tar
+[MQBENCH] INFO: Replace module to qat module.
+[MQBENCH] INFO: Set layer conv1 to 8 bit.
+[MQBENCH] INFO: Set layer fc to 8 bit.
+[MQBENCH] INFO: Replace module to qat module.
+[MQBENCH] INFO: Set layer conv1 to 8 bit.
+[MQBENCH] INFO: Set layer fc to 8 bit.
+[MQBENCH] INFO: Quantize model Scheme: BackendType.Academic Mode: Training
+[MQBENCH] INFO: Weight Qconfig:
+    FakeQuantize: LearnableFakeQuantize Params: {}
+    Oberver:      LSQObserver Params: Symmetric: True / Bitwidth: 2 / Per channel: False / Pot scale: False / Extra kwargs: {}
+[MQBENCH] INFO: Activation Qconfig:
+    FakeQuantize: LearnableFakeQuantize Params: {}
+    Oberver:      LSQObserver Params: Symmetric: False / Bitwidth: 2 / Per channel: False / Pot scale: False / Extra kwargs: {}
+[MQBENCH] INFO: Replace module to qat module.
+[MQBENCH] INFO: Set layer conv1 to 8 bit.
+[MQBENCH] INFO: Set layer fc to 8 bit.
+[MQBENCH] INFO: Set x post act quantize to 8 bit.
+[MQBENCH] INFO: Insert act quant x_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant maxpool_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_1_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_1_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_1_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer4_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer4_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer4_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Set flatten post act quantize to 8 bit.
+[MQBENCH] INFO: Insert act quant flatten_post_act_fake_quantizer
+[MQBENCH] INFO: Set x post act quantize to 8 bit.
+[MQBENCH] INFO: Insert act quant x_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant maxpool_post_act_fake_quantizer
+[MQBENCH] INFO: Set x post act quantize to 8 bit.
+[MQBENCH] INFO: Insert act quant x_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant maxpool_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_1_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_1_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_1_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_1_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_1_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer4_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_1_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer4_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer4_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer4_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Set flatten post act quantize to 8 bit.
+[MQBENCH] INFO: Insert act quant layer4_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant flatten_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer4_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Set flatten post act quantize to 8 bit.
+[MQBENCH] INFO: Insert act quant flatten_post_act_fake_quantizer
+[MQBENCH] INFO: Set x post act quantize to 8 bit.
+[MQBENCH] INFO: Insert act quant x_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant maxpool_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer1_1_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer2_1_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer3_1_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer4_0_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer4_0_relu_1_post_act_fake_quantizer
+[MQBENCH] INFO: Insert act quant layer4_1_relu_post_act_fake_quantizer
+[MQBENCH] INFO: Set flatten post act quantize to 8 bit.
+[MQBENCH] INFO: Insert act quant flatten_post_act_fake_quantizer
+[MQBENCH] INFO: Enable observer and Disable quantize.
+[MQBENCH] INFO: Enable observer and Disable quantize.
+[MQBENCH] INFO: Enable observer and Disable quantize.
+Start calibration ...
+Calibrate images number = 100
+[MQBENCH] INFO: Enable observer and Disable quantize.
+Start calibration ...
+Calibrate images number = 100
+Start calibration ...
+Calibrate images number = 100
+Start calibration ...
+Calibrate images number = 100
+[MQBENCH] WARNING: onnxsim not found, if you want to use deploy_tengine, please install it.
+[MQBENCH] WARNING: onnxsim not found, if you want to use deploy_tengine, please install it.
+[MQBENCH] WARNING: onnxsim not found, if you want to use deploy_tengine, please install it.
+[MQBENCH] WARNING: onnxsim not found, if you want to use deploy_tengine, please install it.
+Calibration ==> 1
+Calibration ==> 1
+Calibration ==> 1
+Calibration ==> 1
+Calibration ==> 2
+Calibration ==> 2
+Calibration ==> 2
+Calibration ==> 2
+Calibration ==> 3
+Calibration ==> 3
+Calibration ==> 3
+Calibration ==> 3
+Calibration ==> 4
+Calibration ==> 4
+Calibration ==> 4
+Calibration ==> 4
+Calibration ==> 5
+Calibration ==> 5
+Calibration ==> 5
+Calibration ==> 5
+Calibration ==> 6
+Calibration ==> 6
+Calibration ==> 6
+Calibration ==> 6
+Calibration ==> 7
+Calibration ==> 7
+Calibration ==> 7
+Calibration ==> 7
+Calibration ==> 8
+Calibration ==> 8
+Calibration ==> 8
+Calibration ==> 8
+Calibration ==> 9
+Calibration ==> 9
+Calibration ==> 9
+Calibration ==> 9
+Calibration ==> 10
+End calibration.
+[MQBENCH] INFO: Disable observer and Enable quantize.
+Calibration ==> 10
+End calibration.
+[MQBENCH] INFO: Disable observer and Enable quantize.
+Calibration ==> 10
+End calibration.
+[MQBENCH] INFO: Disable observer and Enable quantize.
+Calibration ==> 10
+End calibration.
+[MQBENCH] INFO: Disable observer and Enable quantize.
+[MQBENCH] WARNING: onnxsim not found, if you want to use deploy_tengine, please install it.
+[MQBENCH] WARNING: onnxsim not found, if you want to use deploy_tengine, please install it.
+[MQBENCH] WARNING: onnxsim not found, if you want to use deploy_tengine, please install it.
+[MQBENCH] WARNING: onnxsim not found, if you want to use deploy_tengine, please install it.
+Epoch: [0][   0/2503]	Time  6.973 ( 6.973)	Data  5.612 ( 5.612)	Loss 6.8800e+00 (6.8800e+00)	Acc@1   0.39 (  0.39)	Acc@5   0.98 (  0.98)
+Epoch: [0][   0/2503]	Time  6.977 ( 6.977)	Data  5.773 ( 5.773)	Loss 6.8800e+00 (6.8800e+00)	Acc@1   0.39 (  0.39)	Acc@5   0.98 (  0.98)
+Epoch: [0][   0/2503]	Time  6.994 ( 6.994)	Data  5.546 ( 5.546)	Loss 6.8800e+00 (6.8800e+00)	Acc@1   0.39 (  0.39)	Acc@5   0.98 (  0.98)
+Epoch: [0][   0/2503]	Time  7.018 ( 7.018)	Data  5.929 ( 5.929)	Loss 6.8800e+00 (6.8800e+00)	Acc@1   0.39 (  0.39)	Acc@5   0.98 (  0.98)
+Epoch: [0][ 100/2503]	Time  1.280 ( 1.239)	Data  0.000 ( 0.155)	Loss 5.3796e+00 (5.9312e+00)	Acc@1   8.20 (  3.68)	Acc@5  20.31 ( 11.46)
+Epoch: [0][ 100/2503]	Time  1.282 ( 1.239)	Data  0.273 ( 0.841)	Loss 5.3796e+00 (5.9312e+00)	Acc@1   8.20 (  3.68)	Acc@5  20.31 ( 11.46)
+Epoch: [0][ 100/2503]	Time  1.278 ( 1.239)	Data  1.082 ( 0.687)	Loss 5.3796e+00 (5.9312e+00)	Acc@1   8.20 (  3.68)	Acc@5  20.31 ( 11.46)
+Epoch: [0][ 100/2503]	Time  1.287 ( 1.240)	Data  0.117 ( 0.527)	Loss 5.3796e+00 (5.9312e+00)	Acc@1   8.20 (  3.68)	Acc@5  20.31 ( 11.46)
+Epoch: [0][ 200/2503]	Time  1.305 ( 1.221)	Data  1.115 ( 0.745)	Loss 4.6152e+00 (5.4181e+00)	Acc@1  13.09 (  7.52)	Acc@5  31.84 ( 19.73)
+Epoch: [0][ 200/2503]	Time  1.302 ( 1.221)	Data  0.000 ( 0.424)	Loss 4.6152e+00 (5.4181e+00)	Acc@1  13.09 (  7.52)	Acc@5  31.84 ( 19.73)
+Epoch: [0][ 200/2503]	Time  1.308 ( 1.221)	Data  0.000 ( 0.078)	Loss 4.6152e+00 (5.4181e+00)	Acc@1  13.09 (  7.52)	Acc@5  31.84 ( 19.73)
+Epoch: [0][ 200/2503]	Time  1.307 ( 1.221)	Data  0.000 ( 0.647)	Loss 4.6152e+00 (5.4181e+00)	Acc@1  13.09 (  7.52)	Acc@5  31.84 ( 19.73)
+Epoch: [0][ 300/2503]	Time  1.268 ( 1.214)	Data  1.075 ( 0.833)	Loss 4.1585e+00 (5.0561e+00)	Acc@1  20.12 ( 10.99)	Acc@5  41.02 ( 26.08)
+Epoch: [0][ 300/2503]	Time  1.269 ( 1.214)	Data  0.000 ( 0.313)	Loss 4.1585e+00 (5.0561e+00)	Acc@1  20.12 ( 10.99)	Acc@5  41.02 ( 26.08)
+Epoch: [0][ 300/2503]	Time  1.280 ( 1.214)	Data  0.000 ( 0.052)	Loss 4.1585e+00 (5.0561e+00)	Acc@1  20.12 ( 10.99)	Acc@5  41.02 ( 26.08)
+Epoch: [0][ 300/2503]	Time  1.270 ( 1.214)	Data  0.000 ( 0.432)	Loss 4.1585e+00 (5.0561e+00)	Acc@1  20.12 ( 10.99)	Acc@5  41.02 ( 26.08)
+Epoch: [0][ 400/2503]	Time  1.253 ( 1.215)	Data  1.070 ( 0.870)	Loss 3.9284e+00 (4.7861e+00)	Acc@1  22.46 ( 13.96)	Acc@5  42.58 ( 30.96)
+Epoch: [0][ 400/2503]	Time  1.257 ( 1.215)	Data  0.000 ( 0.325)	Loss 3.9284e+00 (4.7861e+00)	Acc@1  22.46 ( 13.96)	Acc@5  42.58 ( 30.96)
+Epoch: [0][ 400/2503]	Time  1.258 ( 1.215)	Data  0.000 ( 0.039)	Loss 3.9284e+00 (4.7861e+00)	Acc@1  22.46 ( 13.96)	Acc@5  42.58 ( 30.96)
+Epoch: [0][ 400/2503]	Time  1.262 ( 1.215)	Data  0.000 ( 0.377)	Loss 3.9284e+00 (4.7861e+00)	Acc@1  22.46 ( 13.96)	Acc@5  42.58 ( 30.96)
+Epoch: [0][ 500/2503]	Time  1.089 ( 1.205)	Data  0.000 ( 0.031)	Loss 3.8195e+00 (4.5702e+00)	Acc@1  27.34 ( 16.49)	Acc@5  50.20 ( 34.77)
+Epoch: [0][ 500/2503]	Time  1.101 ( 1.205)	Data  0.000 ( 0.260)	Loss 3.8195e+00 (4.5702e+00)	Acc@1  27.34 ( 16.49)	Acc@5  50.20 ( 34.77)
+Epoch: [0][ 500/2503]	Time  1.109 ( 1.205)	Data  0.919 ( 0.891)	Loss 3.8195e+00 (4.5702e+00)	Acc@1  27.34 ( 16.49)	Acc@5  50.20 ( 34.77)
+Epoch: [0][ 500/2503]	Time  1.102 ( 1.205)	Data  0.000 ( 0.302)	Loss 3.8195e+00 (4.5702e+00)	Acc@1  27.34 ( 16.49)	Acc@5  50.20 ( 34.77)
+Epoch: [0][ 600/2503]	Time  1.189 ( 1.207)	Data  0.998 ( 0.913)	Loss 3.2643e+00 (4.3874e+00)	Acc@1  34.18 ( 18.83)	Acc@5  60.16 ( 38.05)
+Epoch: [0][ 600/2503]	Time  1.185 ( 1.207)	Data  0.000 ( 0.026)	Loss 3.2643e+00 (4.3874e+00)	Acc@1  34.18 ( 18.83)	Acc@5  60.16 ( 38.05)
+Epoch: [0][ 600/2503]	Time  1.184 ( 1.207)	Data  0.000 ( 0.217)	Loss 3.2643e+00 (4.3874e+00)	Acc@1  34.18 ( 18.83)	Acc@5  60.16 ( 38.05)
+Epoch: [0][ 600/2503]	Time  1.190 ( 1.207)	Data  0.000 ( 0.282)	Loss 3.2643e+00 (4.3874e+00)	Acc@1  34.18 ( 18.83)	Acc@5  60.16 ( 38.05)
+Epoch: [0][ 700/2503]	Time  1.166 ( 1.209)	Data  0.000 ( 0.242)	Loss 3.2768e+00 (4.2346e+00)	Acc@1  34.57 ( 20.85)	Acc@5  57.42 ( 40.79)
+Epoch: [0][ 700/2503]	Time  1.176 ( 1.209)	Data  0.996 ( 0.930)	Loss 3.2768e+00 (4.2346e+00)	Acc@1  34.57 ( 20.85)	Acc@5  57.42 ( 40.79)
+Epoch: [0][ 700/2503]	Time  1.167 ( 1.209)	Data  0.000 ( 0.023)	Loss 3.2768e+00 (4.2346e+00)	Acc@1  34.57 ( 20.85)	Acc@5  57.42 ( 40.79)
+Epoch: [0][ 700/2503]	Time  1.177 ( 1.209)	Data  0.000 ( 0.186)	Loss 3.2768e+00 (4.2346e+00)	Acc@1  34.57 ( 20.85)	Acc@5  57.42 ( 40.79)
+Epoch: [0][ 800/2503]	Time  1.142 ( 1.207)	Data  0.000 ( 0.212)	Loss 3.3115e+00 (4.1046e+00)	Acc@1  31.64 ( 22.56)	Acc@5  55.66 ( 43.14)
+Epoch: [0][ 800/2503]	Time  1.144 ( 1.207)	Data  0.961 ( 0.939)	Loss 3.3115e+00 (4.1046e+00)	Acc@1  31.64 ( 22.56)	Acc@5  55.66 ( 43.14)
+Epoch: [0][ 800/2503]	Time  1.139 ( 1.207)	Data  0.000 ( 0.020)	Loss 3.3115e+00 (4.1046e+00)	Acc@1  31.64 ( 22.56)	Acc@5  55.66 ( 43.14)
+Epoch: [0][ 800/2503]	Time  1.146 ( 1.207)	Data  0.000 ( 0.163)	Loss 3.3115e+00 (4.1046e+00)	Acc@1  31.64 ( 22.56)	Acc@5  55.66 ( 43.14)
+Epoch: [0][ 900/2503]	Time  1.185 ( 1.210)	Data  0.000 ( 0.018)	Loss 3.0247e+00 (3.9906e+00)	Acc@1  36.72 ( 24.11)	Acc@5  63.28 ( 45.16)
+Epoch: [0][ 900/2503]	Time  1.189 ( 1.210)	Data  0.000 ( 0.188)	Loss 3.0247e+00 (3.9906e+00)	Acc@1  36.72 ( 24.11)	Acc@5  63.28 ( 45.16)
+Epoch: [0][ 900/2503]	Time  1.191 ( 1.210)	Data  0.971 ( 0.951)	Loss 3.0247e+00 (3.9906e+00)	Acc@1  36.72 ( 24.11)	Acc@5  63.28 ( 45.16)
+Epoch: [0][ 900/2503]	Time  1.201 ( 1.210)	Data  0.000 ( 0.145)	Loss 3.0247e+00 (3.9906e+00)	Acc@1  36.72 ( 24.11)	Acc@5  63.28 ( 45.16)
+Epoch: [0][1000/2503]	Time  1.199 ( 1.212)	Data  0.000 ( 0.016)	Loss 3.0128e+00 (3.8895e+00)	Acc@1  36.91 ( 25.50)	Acc@5  61.33 ( 46.98)
+Epoch: [0][1000/2503]	Time  1.200 ( 1.212)	Data  1.008 ( 0.960)	Loss 3.0128e+00 (3.8895e+00)	Acc@1  36.91 ( 25.50)	Acc@5  61.33 ( 46.98)
+Epoch: [0][1000/2503]	Time  1.204 ( 1.212)	Data  0.000 ( 0.130)	Loss 3.0128e+00 (3.8895e+00)	Acc@1  36.91 ( 25.50)	Acc@5  61.33 ( 46.98)
+Epoch: [0][1000/2503]	Time  1.200 ( 1.212)	Data  0.000 ( 0.169)	Loss 3.0128e+00 (3.8895e+00)	Acc@1  36.91 ( 25.50)	Acc@5  61.33 ( 46.98)
+Epoch: [0][1100/2503]	Time  1.177 ( 1.212)	Data  0.000 ( 0.118)	Loss 2.8733e+00 (3.7999e+00)	Acc@1  38.87 ( 26.75)	Acc@5  64.45 ( 48.56)
+Epoch: [0][1100/2503]	Time  1.174 ( 1.212)	Data  0.000 ( 0.154)	Loss 2.8733e+00 (3.7999e+00)	Acc@1  38.87 ( 26.75)	Acc@5  64.45 ( 48.56)
+Epoch: [0][1100/2503]	Time  1.180 ( 1.212)	Data  0.983 ( 0.966)	Loss 2.8733e+00 (3.7999e+00)	Acc@1  38.87 ( 26.75)	Acc@5  64.45 ( 48.56)
+Epoch: [0][1100/2503]	Time  1.176 ( 1.212)	Data  0.000 ( 0.014)	Loss 2.8733e+00 (3.7999e+00)	Acc@1  38.87 ( 26.75)	Acc@5  64.45 ( 48.56)
+Epoch: [0][1200/2503]	Time  1.415 ( 1.213)	Data  1.220 ( 0.972)	Loss 2.8976e+00 (3.7186e+00)	Acc@1  39.06 ( 27.89)	Acc@5  63.28 ( 49.96)
+Epoch: [0][1200/2503]	Time  1.404 ( 1.213)	Data  0.000 ( 0.141)	Loss 2.8976e+00 (3.7186e+00)	Acc@1  39.06 ( 27.89)	Acc@5  63.28 ( 49.96)
+Epoch: [0][1200/2503]	Time  1.394 ( 1.213)	Data  0.000 ( 0.109)	Loss 2.8976e+00 (3.7186e+00)	Acc@1  39.06 ( 27.89)	Acc@5  63.28 ( 49.96)
+Epoch: [0][1200/2503]	Time  1.416 ( 1.213)	Data  0.000 ( 0.013)	Loss 2.8976e+00 (3.7186e+00)	Acc@1  39.06 ( 27.89)	Acc@5  63.28 ( 49.96)
+Epoch: [0][1300/2503]	Time  1.085 ( 1.214)	Data  0.000 ( 0.130)	Loss 2.6121e+00 (3.6449e+00)	Acc@1  42.38 ( 28.95)	Acc@5  69.14 ( 51.24)
+Epoch: [0][1300/2503]	Time  1.091 ( 1.214)	Data  0.901 ( 0.976)	Loss 2.6121e+00 (3.6449e+00)	Acc@1  42.38 ( 28.95)	Acc@5  69.14 ( 51.24)
+Epoch: [0][1300/2503]	Time  1.084 ( 1.214)	Data  0.000 ( 0.100)	Loss 2.6121e+00 (3.6449e+00)	Acc@1  42.38 ( 28.95)	Acc@5  69.14 ( 51.24)
+Epoch: [0][1300/2503]	Time  1.095 ( 1.214)	Data  0.000 ( 0.012)	Loss 2.6121e+00 (3.6449e+00)	Acc@1  42.38 ( 28.95)	Acc@5  69.14 ( 51.24)
+Epoch: [0][1400/2503]	Time  1.112 ( 1.213)	Data  0.000 ( 0.121)	Loss 2.7392e+00 (3.5779e+00)	Acc@1  40.82 ( 29.93)	Acc@5  66.60 ( 52.39)
+Epoch: [0][1400/2503]	Time  1.109 ( 1.213)	Data  0.917 ( 0.979)	Loss 2.7392e+00 (3.5779e+00)	Acc@1  40.82 ( 29.93)	Acc@5  66.60 ( 52.39)
+Epoch: [0][1400/2503]	Time  1.120 ( 1.213)	Data  0.000 ( 0.093)	Loss 2.7392e+00 (3.5779e+00)	Acc@1  40.82 ( 29.93)	Acc@5  66.60 ( 52.39)
+Epoch: [0][1400/2503]	Time  1.115 ( 1.213)	Data  0.000 ( 0.011)	Loss 2.7392e+00 (3.5779e+00)	Acc@1  40.82 ( 29.93)	Acc@5  66.60 ( 52.39)
+Epoch: [0][1500/2503]	Time  1.106 ( 1.214)	Data  0.000 ( 0.113)	Loss 2.5459e+00 (3.5175e+00)	Acc@1  45.51 ( 30.79)	Acc@5  69.34 ( 53.44)
+Epoch: [0][1500/2503]	Time  1.093 ( 1.214)	Data  0.000 ( 0.011)	Loss 2.5459e+00 (3.5175e+00)	Acc@1  45.51 ( 30.79)	Acc@5  69.34 ( 53.44)
+Epoch: [0][1500/2503]	Time  1.101 ( 1.214)	Data  0.917 ( 0.983)	Loss 2.5459e+00 (3.5175e+00)	Acc@1  45.51 ( 30.79)	Acc@5  69.34 ( 53.44)
+Epoch: [0][1500/2503]	Time  1.110 ( 1.214)	Data  0.000 ( 0.087)	Loss 2.5459e+00 (3.5175e+00)	Acc@1  45.51 ( 30.79)	Acc@5  69.34 ( 53.44)
+Epoch: [0][1600/2503]	Time  1.057 ( 1.214)	Data  0.872 ( 0.986)	Loss 2.5447e+00 (3.4607e+00)	Acc@1  43.75 ( 31.63)	Acc@5  70.31 ( 54.40)
+Epoch: [0][1600/2503]	Time  1.050 ( 1.214)	Data  0.000 ( 0.106)	Loss 2.5447e+00 (3.4607e+00)	Acc@1  43.75 ( 31.63)	Acc@5  70.31 ( 54.40)
+Epoch: [0][1600/2503]	Time  1.066 ( 1.214)	Data  0.000 ( 0.010)	Loss 2.5447e+00 (3.4607e+00)	Acc@1  43.75 ( 31.63)	Acc@5  70.31 ( 54.40)
+Epoch: [0][1600/2503]	Time  1.066 ( 1.214)	Data  0.000 ( 0.081)	Loss 2.5447e+00 (3.4607e+00)	Acc@1  43.75 ( 31.63)	Acc@5  70.31 ( 54.40)
+Epoch: [0][1700/2503]	Time  1.247 ( 1.213)	Data  1.060 ( 0.987)	Loss 2.6153e+00 (3.4095e+00)	Acc@1  43.36 ( 32.39)	Acc@5  66.99 ( 55.26)
+Epoch: [0][1700/2503]	Time  1.249 ( 1.213)	Data  0.000 ( 0.100)	Loss 2.6153e+00 (3.4095e+00)	Acc@1  43.36 ( 32.39)	Acc@5  66.99 ( 55.26)
+Epoch: [0][1700/2503]	Time  1.249 ( 1.213)	Data  0.000 ( 0.009)	Loss 2.6153e+00 (3.4095e+00)	Acc@1  43.36 ( 32.39)	Acc@5  66.99 ( 55.26)
+Epoch: [0][1700/2503]	Time  1.263 ( 1.213)	Data  0.081 ( 0.080)	Loss 2.6153e+00 (3.4095e+00)	Acc@1  43.36 ( 32.39)	Acc@5  66.99 ( 55.26)
+Epoch: [0][1800/2503]	Time  1.581 ( 1.217)	Data  0.000 ( 0.009)	Loss 2.5432e+00 (3.3618e+00)	Acc@1  46.29 ( 33.10)	Acc@5  69.53 ( 56.06)
+Epoch: [0][1800/2503]	Time  1.594 ( 1.217)	Data  0.000 ( 0.094)	Loss 2.5432e+00 (3.3618e+00)	Acc@1  46.29 ( 33.10)	Acc@5  69.53 ( 56.06)
+Epoch: [0][1800/2503]	Time  1.592 ( 1.217)	Data  0.000 ( 0.963)	Loss 2.5432e+00 (3.3618e+00)	Acc@1  46.29 ( 33.10)	Acc@5  69.53 ( 56.06)
+Epoch: [0][1800/2503]	Time  1.593 ( 1.217)	Data  1.391 ( 0.125)	Loss 2.5432e+00 (3.3618e+00)	Acc@1  46.29 ( 33.10)	Acc@5  69.53 ( 56.06)
+Epoch: [0][1900/2503]	Time  1.284 ( 1.221)	Data  0.000 ( 0.009)	Loss 2.5321e+00 (3.3177e+00)	Acc@1  46.68 ( 33.76)	Acc@5  67.38 ( 56.80)
+Epoch: [0][1900/2503]	Time  1.282 ( 1.221)	Data  1.089 ( 0.176)	Loss 2.5321e+00 (3.3177e+00)	Acc@1  46.68 ( 33.76)	Acc@5  67.38 ( 56.80)
+Epoch: [0][1900/2503]	Time  1.282 ( 1.221)	Data  0.000 ( 0.913)	Loss 2.5321e+00 (3.3177e+00)	Acc@1  46.68 ( 33.76)	Acc@5  67.38 ( 56.80)
+Epoch: [0][1900/2503]	Time  1.300 ( 1.221)	Data  0.000 ( 0.089)	Loss 2.5321e+00 (3.3177e+00)	Acc@1  46.68 ( 33.76)	Acc@5  67.38 ( 56.80)
+Epoch: [0][2000/2503]	Time  1.227 ( 1.225)	Data  0.000 ( 0.085)	Loss 2.3917e+00 (3.2771e+00)	Acc@1  47.66 ( 34.37)	Acc@5  71.88 ( 57.48)
+Epoch: [0][2000/2503]	Time  1.224 ( 1.225)	Data  0.000 ( 0.867)	Loss 2.3917e+00 (3.2771e+00)	Acc@1  47.66 ( 34.37)	Acc@5  71.88 ( 57.48)
+Epoch: [0][2000/2503]	Time  1.223 ( 1.225)	Data  0.000 ( 0.008)	Loss 2.3917e+00 (3.2771e+00)	Acc@1  47.66 ( 34.37)	Acc@5  71.88 ( 57.48)
+Epoch: [0][2000/2503]	Time  1.231 ( 1.225)	Data  1.037 ( 0.222)	Loss 2.3917e+00 (3.2771e+00)	Acc@1  47.66 ( 34.37)	Acc@5  71.88 ( 57.48)
+Epoch: [0][2100/2503]	Time  1.244 ( 1.229)	Data  1.055 ( 0.264)	Loss 2.5378e+00 (3.2382e+00)	Acc@1  44.92 ( 34.96)	Acc@5  69.34 ( 58.13)
+Epoch: [0][2100/2503]	Time  1.251 ( 1.229)	Data  0.000 ( 0.008)	Loss 2.5378e+00 (3.2382e+00)	Acc@1  44.92 ( 34.96)	Acc@5  69.34 ( 58.13)
+Epoch: [0][2100/2503]	Time  1.253 ( 1.229)	Data  0.000 ( 0.081)	Loss 2.5378e+00 (3.2382e+00)	Acc@1  44.92 ( 34.96)	Acc@5  69.34 ( 58.13)
+Epoch: [0][2100/2503]	Time  1.237 ( 1.229)	Data  0.000 ( 0.826)	Loss 2.5378e+00 (3.2382e+00)	Acc@1  44.92 ( 34.96)	Acc@5  69.34 ( 58.13)
+Epoch: [0][2200/2503]	Time  1.266 ( 1.230)	Data  0.000 ( 0.077)	Loss 2.6187e+00 (3.2025e+00)	Acc@1  43.75 ( 35.50)	Acc@5  67.97 ( 58.72)
+Epoch: [0][2200/2503]	Time  1.271 ( 1.230)	Data  0.000 ( 0.007)	Loss 2.6187e+00 (3.2025e+00)	Acc@1  43.75 ( 35.50)	Acc@5  67.97 ( 58.72)
+Epoch: [0][2200/2503]	Time  1.281 ( 1.230)	Data  1.081 ( 0.300)	Loss 2.6187e+00 (3.2025e+00)	Acc@1  43.75 ( 35.50)	Acc@5  67.97 ( 58.72)
+Epoch: [0][2200/2503]	Time  1.295 ( 1.230)	Data  0.000 ( 0.788)	Loss 2.6187e+00 (3.2025e+00)	Acc@1  43.75 ( 35.50)	Acc@5  67.97 ( 58.72)
+Epoch: [0][2300/2503]	Time  1.355 ( 1.232)	Data  0.000 ( 0.074)	Loss 2.5646e+00 (3.1686e+00)	Acc@1  44.92 ( 36.03)	Acc@5  69.53 ( 59.29)
+Epoch: [0][2300/2503]	Time  1.359 ( 1.232)	Data  0.000 ( 0.007)	Loss 2.5646e+00 (3.1686e+00)	Acc@1  44.92 ( 36.03)	Acc@5  69.53 ( 59.29)
+Epoch: [0][2300/2503]	Time  1.363 ( 1.232)	Data  0.000 ( 0.754)	Loss 2.5646e+00 (3.1686e+00)	Acc@1  44.92 ( 36.03)	Acc@5  69.53 ( 59.29)
+Epoch: [0][2300/2503]	Time  1.357 ( 1.232)	Data  1.143 ( 0.334)	Loss 2.5646e+00 (3.1686e+00)	Acc@1  44.92 ( 36.03)	Acc@5  69.53 ( 59.29)
+Epoch: [0][2400/2503]	Time  1.337 ( 1.235)	Data  0.000 ( 0.071)	Loss 2.3832e+00 (3.1363e+00)	Acc@1  49.02 ( 36.52)	Acc@5  74.41 ( 59.83)
+Epoch: [0][2400/2503]	Time  1.338 ( 1.235)	Data  0.000 ( 0.723)	Loss 2.3832e+00 (3.1363e+00)	Acc@1  49.02 ( 36.52)	Acc@5  74.41 ( 59.83)
+Epoch: [0][2400/2503]	Time  1.328 ( 1.235)	Data  0.000 ( 0.007)	Loss 2.3832e+00 (3.1363e+00)	Acc@1  49.02 ( 36.52)	Acc@5  74.41 ( 59.83)
+Epoch: [0][2400/2503]	Time  1.339 ( 1.235)	Data  1.130 ( 0.366)	Loss 2.3832e+00 (3.1363e+00)	Acc@1  49.02 ( 36.52)	Acc@5  74.41 ( 59.83)
+Epoch: [0][2500/2503]	Time  1.391 ( 1.236)	Data  0.000 ( 0.068)	Loss 2.3246e+00 (3.1060e+00)	Acc@1  51.17 ( 36.98)	Acc@5  71.48 ( 60.33)
+Epoch: [0][2500/2503]	Time  1.392 ( 1.236)	Data  0.000 ( 0.694)	Loss 2.3246e+00 (3.1060e+00)	Acc@1  51.17 ( 36.98)	Acc@5  71.48 ( 60.33)
+Epoch: [0][2500/2503]	Time  1.390 ( 1.236)	Data  0.000 ( 0.007)	Loss 2.3246e+00 (3.1060e+00)	Acc@1  51.17 ( 36.98)	Acc@5  71.48 ( 60.33)
+Epoch: [0][2500/2503]	Time  1.397 ( 1.236)	Data  1.206 ( 0.394)	Loss 2.3246e+00 (3.1060e+00)	Acc@1  51.17 ( 36.98)	Acc@5  71.48 ( 60.33)
+[MQBENCH] WARNING: onnxsim not found, if you want to use deploy_tengine, please install it.
+[MQBENCH] WARNING: onnxsim not found, if you want to use deploy_tengine, please install it.
+[MQBENCH] WARNING: onnxsim not found, if you want to use deploy_tengine, please install it.
+[MQBENCH] WARNING: onnxsim not found, if you want to use deploy_tengine, please install it.
+Test: [  0/391]	Time  3.671 ( 3.671)	Loss 1.0624e+00 (1.0624e+00)	Acc@1  70.31 ( 70.31)	Acc@5  93.75 ( 93.75)
+Test: [  0/391]	Time  3.656 ( 3.656)	Loss 1.0628e+00 (1.0628e+00)	Acc@1  72.66 ( 72.66)	Acc@5  92.19 ( 92.19)
+Test: [  0/391]	Time  3.775 ( 3.775)	Loss 1.1099e+00 (1.1099e+00)	Acc@1  71.09 ( 71.09)	Acc@5  89.84 ( 89.84)
+Test: [  0/391]	Time  3.808 ( 3.808)	Loss 1.1658e+00 (1.1658e+00)	Acc@1  69.53 ( 69.53)	Acc@5  89.06 ( 89.06)
+Test: [100/391]	Time  1.291 ( 1.388)	Loss 1.9196e+00 (1.7270e+00)	Acc@1  44.53 ( 57.04)	Acc@5  80.47 ( 83.13)
+Test: [100/391]	Time  1.292 ( 1.388)	Loss 1.9690e+00 (1.7341e+00)	Acc@1  44.53 ( 57.40)	Acc@5  81.25 ( 83.09)
+Test: [100/391]	Time  1.289 ( 1.388)	Loss 1.8303e+00 (1.7328e+00)	Acc@1  53.91 ( 56.95)	Acc@5  82.81 ( 82.81)
+Test: [100/391]	Time  1.316 ( 1.388)	Loss 1.9742e+00 (1.7281e+00)	Acc@1  43.75 ( 57.45)	Acc@5  82.81 ( 83.03)
+Test: [200/391]	Time  1.158 ( 1.412)	Loss 2.6381e+00 (1.8946e+00)	Acc@1  37.50 ( 54.88)	Acc@5  65.62 ( 80.15)
+Test: [200/391]	Time  1.168 ( 1.412)	Loss 2.6087e+00 (1.8990e+00)	Acc@1  40.62 ( 54.68)	Acc@5  67.19 ( 80.02)
+Test: [200/391]	Time  1.150 ( 1.412)	Loss 2.6570e+00 (1.9044e+00)	Acc@1  39.84 ( 54.67)	Acc@5  67.19 ( 80.10)
+Test: [200/391]	Time  1.151 ( 1.412)	Loss 2.6582e+00 (1.9031e+00)	Acc@1  35.94 ( 54.62)	Acc@5  68.75 ( 80.34)
+Test: [300/391]	Time  1.239 ( 1.393)	Loss 2.3147e+00 (2.0518e+00)	Acc@1  51.56 ( 52.47)	Acc@5  74.22 ( 77.48)
+Test: [300/391]	Time  1.244 ( 1.393)	Loss 2.2640e+00 (2.0500e+00)	Acc@1  56.25 ( 52.44)	Acc@5  75.00 ( 77.45)
+Test: [300/391]	Time  1.260 ( 1.393)	Loss 2.4326e+00 (2.0603e+00)	Acc@1  53.12 ( 52.30)	Acc@5  73.44 ( 77.38)
+Test: [300/391]	Time  1.261 ( 1.393)	Loss 2.4680e+00 (2.0604e+00)	Acc@1  50.00 ( 52.14)	Acc@5  71.88 ( 77.50)
+ * Acc@1 51.588 Acc@5 76.732
+ * Acc@1 51.420 Acc@5 76.756
+ * Acc@1 51.764 Acc@5 76.722
+ * Acc@1 51.716 Acc@5 76.730
+Epoch: [1][   0/2503]	Time  2.432 ( 2.432)	Data  1.274 ( 1.274)	Loss 2.1145e+00 (2.1145e+00)	Acc@1  54.30 ( 54.30)	Acc@5  75.78 ( 75.78)
+Epoch: [1][   0/2503]	Time  2.480 ( 2.480)	Data  1.190 ( 1.190)	Loss 2.1145e+00 (2.1145e+00)	Acc@1  54.30 ( 54.30)	Acc@5  75.78 ( 75.78)
+Epoch: [1][   0/2503]	Time  2.475 ( 2.475)	Data  1.220 ( 1.220)	Loss 2.1145e+00 (2.1145e+00)	Acc@1  54.30 ( 54.30)	Acc@5  75.78 ( 75.78)
+Epoch: [1][   0/2503]	Time  1.449 ( 1.449)	Data  1.242 ( 1.242)	Loss 2.1145e+00 (2.1145e+00)	Acc@1  54.30 ( 54.30)	Acc@5  75.78 ( 75.78)
+Epoch: [1][ 100/2503]	Time  0.948 ( 1.005)	Data  0.758 ( 0.753)	Loss 2.2469e+00 (2.3371e+00)	Acc@1  48.83 ( 48.85)	Acc@5  76.17 ( 73.04)
+Epoch: [1][ 100/2503]	Time  0.946 ( 1.005)	Data  0.000 ( 0.030)	Loss 2.2469e+00 (2.3371e+00)	Acc@1  48.83 ( 48.85)	Acc@5  76.17 ( 73.04)
+Epoch: [1][ 100/2503]	Time  0.946 ( 0.995)	Data  0.149 ( 0.416)	Loss 2.2469e+00 (2.3371e+00)	Acc@1  48.83 ( 48.85)	Acc@5  76.17 ( 73.04)
+Epoch: [1][ 100/2503]	Time  0.949 ( 1.006)	Data  0.000 ( 0.047)	Loss 2.2469e+00 (2.3371e+00)	Acc@1  48.83 ( 48.85)	Acc@5  76.17 ( 73.04)
+Epoch: [1][ 200/2503]	Time  0.930 ( 1.028)	Data  0.000 ( 0.024)	Loss 2.3685e+00 (2.3343e+00)	Acc@1  47.07 ( 48.94)	Acc@5  73.44 ( 73.11)
+Epoch: [1][ 200/2503]	Time  0.933 ( 1.023)	Data  0.736 ( 0.626)	Loss 2.3685e+00 (2.3343e+00)	Acc@1  47.07 ( 48.94)	Acc@5  73.44 ( 73.11)
+Epoch: [1][ 200/2503]	Time  0.930 ( 1.028)	Data  0.000 ( 0.442)	Loss 2.3685e+00 (2.3343e+00)	Acc@1  47.07 ( 48.94)	Acc@5  73.44 ( 73.11)
+Epoch: [1][ 200/2503]	Time  0.933 ( 1.028)	Data  0.000 ( 0.015)	Loss 2.3685e+00 (2.3343e+00)	Acc@1  47.07 ( 48.94)	Acc@5  73.44 ( 73.11)
+Epoch: [1][ 300/2503]	Time  0.913 ( 1.033)	Data  0.000 ( 0.295)	Loss 2.3740e+00 (2.3273e+00)	Acc@1  49.22 ( 49.08)	Acc@5  72.07 ( 73.19)
+Epoch: [1][ 300/2503]	Time  0.924 ( 1.033)	Data  0.000 ( 0.016)	Loss 2.3740e+00 (2.3273e+00)	Acc@1  49.22 ( 49.08)	Acc@5  72.07 ( 73.19)
+Epoch: [1][ 300/2503]	Time  0.918 ( 1.033)	Data  0.000 ( 0.010)	Loss 2.3740e+00 (2.3273e+00)	Acc@1  49.22 ( 49.08)	Acc@5  72.07 ( 73.19)
+Epoch: [1][ 300/2503]	Time  0.919 ( 1.029)	Data  0.726 ( 0.698)	Loss 2.3740e+00 (2.3273e+00)	Acc@1  49.22 ( 49.08)	Acc@5  72.07 ( 73.19)
+Epoch: [1][ 400/2503]	Time  0.968 ( 1.027)	Data  0.000 ( 0.222)	Loss 2.1993e+00 (2.3267e+00)	Acc@1  50.78 ( 49.10)	Acc@5  75.98 ( 73.21)
+Epoch: [1][ 400/2503]	Time  0.966 ( 1.027)	Data  0.000 ( 0.012)	Loss 2.1993e+00 (2.3267e+00)	Acc@1  50.78 ( 49.10)	Acc@5  75.98 ( 73.21)
+Epoch: [1][ 400/2503]	Time  0.966 ( 1.027)	Data  0.000 ( 0.008)	Loss 2.1993e+00 (2.3267e+00)	Acc@1  50.78 ( 49.10)	Acc@5  75.98 ( 73.21)
+Epoch: [1][ 400/2503]	Time  0.971 ( 1.024)	Data  0.770 ( 0.726)	Loss 2.1993e+00 (2.3267e+00)	Acc@1  50.78 ( 49.10)	Acc@5  75.98 ( 73.21)
+Epoch: [1][ 500/2503]	Time  0.949 ( 1.026)	Data  0.000 ( 0.010)	Loss 2.4890e+00 (2.3277e+00)	Acc@1  47.46 ( 49.01)	Acc@5  69.73 ( 73.17)
+Epoch: [1][ 500/2503]	Time  0.952 ( 1.026)	Data  0.000 ( 0.177)	Loss 2.4890e+00 (2.3277e+00)	Acc@1  47.46 ( 49.01)	Acc@5  69.73 ( 73.17)
+Epoch: [1][ 500/2503]	Time  0.947 ( 1.024)	Data  0.755 ( 0.746)	Loss 2.4890e+00 (2.3277e+00)	Acc@1  47.46 ( 49.01)	Acc@5  69.73 ( 73.17)
+Epoch: [1][ 500/2503]	Time  0.941 ( 1.026)	Data  0.000 ( 0.006)	Loss 2.4890e+00 (2.3277e+00)	Acc@1  47.46 ( 49.01)	Acc@5  69.73 ( 73.17)
+Epoch: [1][ 600/2503]	Time  1.061 ( 1.024)	Data  0.000 ( 0.008)	Loss 2.1920e+00 (2.3204e+00)	Acc@1  50.98 ( 49.10)	Acc@5  76.17 ( 73.28)
+Epoch: [1][ 600/2503]	Time  1.064 ( 1.022)	Data  0.872 ( 0.758)	Loss 2.1920e+00 (2.3204e+00)	Acc@1  50.98 ( 49.10)	Acc@5  76.17 ( 73.28)
+Epoch: [1][ 600/2503]	Time  1.060 ( 1.024)	Data  0.000 ( 0.148)	Loss 2.1920e+00 (2.3204e+00)	Acc@1  50.98 ( 49.10)	Acc@5  76.17 ( 73.28)
+Epoch: [1][ 600/2503]	Time  1.065 ( 1.024)	Data  0.000 ( 0.005)	Loss 2.1920e+00 (2.3204e+00)	Acc@1  50.98 ( 49.10)	Acc@5  76.17 ( 73.28)
+Epoch: [1][ 700/2503]	Time  1.135 ( 1.026)	Data  0.000 ( 0.007)	Loss 2.2878e+00 (2.3126e+00)	Acc@1  48.24 ( 49.22)	Acc@5  74.22 ( 73.38)
+Epoch: [1][ 700/2503]	Time  1.135 ( 1.026)	Data  0.000 ( 0.127)	Loss 2.2878e+00 (2.3126e+00)	Acc@1  48.24 ( 49.22)	Acc@5  74.22 ( 73.38)
+Epoch: [1][ 700/2503]	Time  1.134 ( 1.026)	Data  0.000 ( 0.005)	Loss 2.2878e+00 (2.3126e+00)	Acc@1  48.24 ( 49.22)	Acc@5  74.22 ( 73.38)
+Epoch: [1][ 700/2503]	Time  1.131 ( 1.024)	Data  0.933 ( 0.770)	Loss 2.2878e+00 (2.3126e+00)	Acc@1  48.24 ( 49.22)	Acc@5  74.22 ( 73.38)
+Epoch: [1][ 800/2503]	Time  1.034 ( 1.024)	Data  0.844 ( 0.777)	Loss 2.2518e+00 (2.3088e+00)	Acc@1  47.85 ( 49.29)	Acc@5  75.98 ( 73.45)
+Epoch: [1][ 800/2503]	Time  1.045 ( 1.025)	Data  0.000 ( 0.006)	Loss 2.2518e+00 (2.3088e+00)	Acc@1  47.85 ( 49.29)	Acc@5  75.98 ( 73.45)
+Epoch: [1][ 800/2503]	Time  1.026 ( 1.025)	Data  0.000 ( 0.111)	Loss 2.2518e+00 (2.3088e+00)	Acc@1  47.85 ( 49.29)	Acc@5  75.98 ( 73.45)
+Epoch: [1][ 800/2503]	Time  1.039 ( 1.025)	Data  0.000 ( 0.004)	Loss 2.2518e+00 (2.3088e+00)	Acc@1  47.85 ( 49.29)	Acc@5  75.98 ( 73.45)
+Epoch: [1][ 900/2503]	Time  0.917 ( 1.025)	Data  0.000 ( 0.004)	Loss 2.3303e+00 (2.3052e+00)	Acc@1  51.56 ( 49.36)	Acc@5  73.05 ( 73.51)
+Epoch: [1][ 900/2503]	Time  0.919 ( 1.025)	Data  0.000 ( 0.006)	Loss 2.3303e+00 (2.3052e+00)	Acc@1  51.56 ( 49.36)	Acc@5  73.05 ( 73.51)
+Epoch: [1][ 900/2503]	Time  0.918 ( 1.025)	Data  0.000 ( 0.099)	Loss 2.3303e+00 (2.3052e+00)	Acc@1  51.56 ( 49.36)	Acc@5  73.05 ( 73.51)
+Epoch: [1][ 900/2503]	Time  0.917 ( 1.024)	Data  0.726 ( 0.782)	Loss 2.3303e+00 (2.3052e+00)	Acc@1  51.56 ( 49.36)	Acc@5  73.05 ( 73.51)
+Epoch: [1][1000/2503]	Time  0.923 ( 1.028)	Data  0.000 ( 0.005)	Loss 2.4476e+00 (2.3021e+00)	Acc@1  49.22 ( 49.40)	Acc@5  69.73 ( 73.55)
+Epoch: [1][1000/2503]	Time  0.930 ( 1.028)	Data  0.000 ( 0.089)	Loss 2.4476e+00 (2.3021e+00)	Acc@1  49.22 ( 49.40)	Acc@5  69.73 ( 73.55)
+Epoch: [1][1000/2503]	Time  0.928 ( 1.027)	Data  0.732 ( 0.789)	Loss 2.4476e+00 (2.3021e+00)	Acc@1  49.22 ( 49.40)	Acc@5  69.73 ( 73.55)
+Epoch: [1][1000/2503]	Time  0.939 ( 1.028)	Data  0.000 ( 0.003)	Loss 2.4476e+00 (2.3021e+00)	Acc@1  49.22 ( 49.40)	Acc@5  69.73 ( 73.55)
+Epoch: [1][1100/2503]	Time  1.107 ( 1.032)	Data  0.000 ( 0.005)	Loss 2.4490e+00 (2.2976e+00)	Acc@1  47.85 ( 49.48)	Acc@5  68.36 ( 73.60)
+Epoch: [1][1100/2503]	Time  1.104 ( 1.032)	Data  0.000 ( 0.081)	Loss 2.4490e+00 (2.2976e+00)	Acc@1  47.85 ( 49.48)	Acc@5  68.36 ( 73.60)
+Epoch: [1][1100/2503]	Time  1.111 ( 1.031)	Data  0.918 ( 0.797)	Loss 2.4490e+00 (2.2976e+00)	Acc@1  47.85 ( 49.48)	Acc@5  68.36 ( 73.60)
+Epoch: [1][1100/2503]	Time  1.107 ( 1.032)	Data  0.236 ( 0.007)	Loss 2.4490e+00 (2.2976e+00)	Acc@1  47.85 ( 49.48)	Acc@5  68.36 ( 73.60)
+Epoch: [1][1200/2503]	Time  1.022 ( 1.035)	Data  0.000 ( 0.074)	Loss 2.3295e+00 (2.2939e+00)	Acc@1  47.46 ( 49.58)	Acc@5  72.07 ( 73.66)
+Epoch: [1][1200/2503]	Time  1.033 ( 1.035)	Data  0.000 ( 0.023)	Loss 2.3295e+00 (2.2939e+00)	Acc@1  47.46 ( 49.58)	Acc@5  72.07 ( 73.66)
+Epoch: [1][1200/2503]	Time  1.032 ( 1.035)	Data  0.000 ( 0.004)	Loss 2.3295e+00 (2.2939e+00)	Acc@1  47.46 ( 49.58)	Acc@5  72.07 ( 73.66)
+Epoch: [1][1200/2503]	Time  1.033 ( 1.034)	Data  0.843 ( 0.803)	Loss 2.3295e+00 (2.2939e+00)	Acc@1  47.46 ( 49.58)	Acc@5  72.07 ( 73.66)
+Epoch: [1][1300/2503]	Time  0.978 ( 1.036)	Data  0.788 ( 0.808)	Loss 2.2422e+00 (2.2892e+00)	Acc@1  51.76 ( 49.65)	Acc@5  74.41 ( 73.72)
+Epoch: [1][1300/2503]	Time  0.980 ( 1.037)	Data  0.000 ( 0.004)	Loss 2.2422e+00 (2.2892e+00)	Acc@1  51.76 ( 49.65)	Acc@5  74.41 ( 73.72)
+Epoch: [1][1300/2503]	Time  0.977 ( 1.037)	Data  0.000 ( 0.021)	Loss 2.2422e+00 (2.2892e+00)	Acc@1  51.76 ( 49.65)	Acc@5  74.41 ( 73.72)
+Epoch: [1][1300/2503]	Time  0.980 ( 1.037)	Data  0.000 ( 0.069)	Loss 2.2422e+00 (2.2892e+00)	Acc@1  51.76 ( 49.65)	Acc@5  74.41 ( 73.72)
+Epoch: [1][1400/2503]	Time  1.320 ( 1.042)	Data  0.000 ( 0.064)	Loss 2.2918e+00 (2.2847e+00)	Acc@1  46.09 ( 49.72)	Acc@5  75.00 ( 73.78)
+Epoch: [1][1400/2503]	Time  1.330 ( 1.041)	Data  1.123 ( 0.815)	Loss 2.2918e+00 (2.2847e+00)	Acc@1  46.09 ( 49.72)	Acc@5  75.00 ( 73.78)
+Epoch: [1][1400/2503]	Time  1.334 ( 1.042)	Data  0.000 ( 0.004)	Loss 2.2918e+00 (2.2847e+00)	Acc@1  46.09 ( 49.72)	Acc@5  75.00 ( 73.78)
+Epoch: [1][1400/2503]	Time  1.332 ( 1.042)	Data  0.000 ( 0.020)	Loss 2.2918e+00 (2.2847e+00)	Acc@1  46.09 ( 49.72)	Acc@5  75.00 ( 73.78)
+Epoch: [1][1500/2503]	Time  1.014 ( 1.045)	Data  0.000 ( 0.003)	Loss 2.2119e+00 (2.2792e+00)	Acc@1  51.56 ( 49.82)	Acc@5  76.17 ( 73.86)
+Epoch: [1][1500/2503]	Time  1.018 ( 1.045)	Data  0.000 ( 0.059)	Loss 2.2119e+00 (2.2792e+00)	Acc@1  51.56 ( 49.82)	Acc@5  76.17 ( 73.86)
+Epoch: [1][1500/2503]	Time  1.015 ( 1.044)	Data  0.816 ( 0.821)	Loss 2.2119e+00 (2.2792e+00)	Acc@1  51.56 ( 49.82)	Acc@5  76.17 ( 73.86)
+Epoch: [1][1500/2503]	Time  1.015 ( 1.045)	Data  0.000 ( 0.019)	Loss 2.2119e+00 (2.2792e+00)	Acc@1  51.56 ( 49.82)	Acc@5  76.17 ( 73.86)
+Epoch: [1][1600/2503]	Time  1.149 ( 1.049)	Data  0.000 ( 0.017)	Loss 2.1698e+00 (2.2748e+00)	Acc@1  50.98 ( 49.90)	Acc@5  76.76 ( 73.93)
+Epoch: [1][1600/2503]	Time  1.143 ( 1.049)	Data  0.000 ( 0.056)	Loss 2.1698e+00 (2.2748e+00)	Acc@1  50.98 ( 49.90)	Acc@5  76.76 ( 73.93)
+Epoch: [1][1600/2503]	Time  1.153 ( 1.049)	Data  0.000 ( 0.003)	Loss 2.1698e+00 (2.2748e+00)	Acc@1  50.98 ( 49.90)	Acc@5  76.76 ( 73.93)
+Epoch: [1][1600/2503]	Time  1.155 ( 1.048)	Data  0.957 ( 0.826)	Loss 2.1698e+00 (2.2748e+00)	Acc@1  50.98 ( 49.90)	Acc@5  76.76 ( 73.93)
+Epoch: [1][1700/2503]	Time  0.977 ( 1.054)	Data  0.000 ( 0.003)	Loss 2.0811e+00 (2.2707e+00)	Acc@1  51.76 ( 49.98)	Acc@5  78.12 ( 74.00)
+Epoch: [1][1700/2503]	Time  0.969 ( 1.054)	Data  0.000 ( 0.052)	Loss 2.0811e+00 (2.2707e+00)	Acc@1  51.76 ( 49.98)	Acc@5  78.12 ( 74.00)
+Epoch: [1][1700/2503]	Time  0.986 ( 1.054)	Data  0.785 ( 0.833)	Loss 2.0811e+00 (2.2707e+00)	Acc@1  51.76 ( 49.98)	Acc@5  78.12 ( 74.00)
+Epoch: [1][1700/2503]	Time  0.999 ( 1.054)	Data  0.001 ( 0.016)	Loss 2.0811e+00 (2.2707e+00)	Acc@1  51.76 ( 49.98)	Acc@5  78.12 ( 74.00)
+Epoch: [1][1800/2503]	Time  1.104 ( 1.061)	Data  0.000 ( 0.003)	Loss 2.1759e+00 (2.2681e+00)	Acc@1  49.80 ( 50.02)	Acc@5  75.39 ( 74.03)
+Epoch: [1][1800/2503]	Time  1.109 ( 1.061)	Data  0.000 ( 0.050)	Loss 2.1759e+00 (2.2681e+00)	Acc@1  49.80 ( 50.02)	Acc@5  75.39 ( 74.03)
+Epoch: [1][1800/2503]	Time  1.108 ( 1.061)	Data  0.000 ( 0.016)	Loss 2.1759e+00 (2.2681e+00)	Acc@1  49.80 ( 50.02)	Acc@5  75.39 ( 74.03)
+Epoch: [1][1800/2503]	Time  1.110 ( 1.061)	Data  0.911 ( 0.841)	Loss 2.1759e+00 (2.2681e+00)	Acc@1  49.80 ( 50.02)	Acc@5  75.39 ( 74.03)
+Epoch: [1][1900/2503]	Time  1.523 ( 1.069)	Data  1.325 ( 0.078)	Loss 2.0675e+00 (2.2645e+00)	Acc@1  55.08 ( 50.10)	Acc@5  78.12 ( 74.09)
+Epoch: [1][1900/2503]	Time  1.527 ( 1.069)	Data  0.000 ( 0.015)	Loss 2.0675e+00 (2.2645e+00)	Acc@1  55.08 ( 50.10)	Acc@5  78.12 ( 74.09)
+Epoch: [1][1900/2503]	Time  1.518 ( 1.069)	Data  0.000 ( 0.003)	Loss 2.0675e+00 (2.2645e+00)	Acc@1  55.08 ( 50.10)	Acc@5  78.12 ( 74.09)
+Epoch: [1][1900/2503]	Time  1.518 ( 1.068)	Data  0.000 ( 0.829)	Loss 2.0675e+00 (2.2645e+00)	Acc@1  55.08 ( 50.10)	Acc@5  78.12 ( 74.09)
+Epoch: [1][2000/2503]	Time  1.341 ( 1.077)	Data  0.000 ( 0.014)	Loss 2.1012e+00 (2.2613e+00)	Acc@1  54.30 ( 50.16)	Acc@5  77.34 ( 74.14)
+Epoch: [1][2000/2503]	Time  1.342 ( 1.077)	Data  1.151 ( 0.126)	Loss 2.1012e+00 (2.2613e+00)	Acc@1  54.30 ( 50.16)	Acc@5  77.34 ( 74.14)
+Epoch: [1][2000/2503]	Time  1.342 ( 1.077)	Data  0.000 ( 0.003)	Loss 2.1012e+00 (2.2613e+00)	Acc@1  54.30 ( 50.16)	Acc@5  77.34 ( 74.14)
+Epoch: [1][2000/2503]	Time  1.351 ( 1.077)	Data  0.000 ( 0.790)	Loss 2.1012e+00 (2.2613e+00)	Acc@1  54.30 ( 50.16)	Acc@5  77.34 ( 74.14)
+Epoch: [1][2100/2503]	Time  1.486 ( 1.088)	Data  1.292 ( 0.173)	Loss 2.4268e+00 (2.2587e+00)	Acc@1  49.02 ( 50.21)	Acc@5  71.09 ( 74.17)
+Epoch: [1][2100/2503]	Time  1.487 ( 1.088)	Data  0.000 ( 0.013)	Loss 2.4268e+00 (2.2587e+00)	Acc@1  49.02 ( 50.21)	Acc@5  71.09 ( 74.17)
+Epoch: [1][2100/2503]	Time  1.495 ( 1.088)	Data  0.093 ( 0.753)	Loss 2.4268e+00 (2.2587e+00)	Acc@1  49.02 ( 50.21)	Acc@5  71.09 ( 74.17)
+Epoch: [1][2100/2503]	Time  1.482 ( 1.088)	Data  0.000 ( 0.003)	Loss 2.4268e+00 (2.2587e+00)	Acc@1  49.02 ( 50.21)	Acc@5  71.09 ( 74.17)
+Epoch: [1][2200/2503]	Time  1.224 ( 1.098)	Data  1.027 ( 0.178)	Loss 2.2502e+00 (2.2558e+00)	Acc@1  51.95 ( 50.26)	Acc@5  75.00 ( 74.22)
+Epoch: [1][2200/2503]	Time  1.229 ( 1.098)	Data  0.000 ( 0.002)	Loss 2.2502e+00 (2.2558e+00)	Acc@1  51.95 ( 50.26)	Acc@5  75.00 ( 74.22)
+Epoch: [1][2200/2503]	Time  1.227 ( 1.098)	Data  0.000 ( 0.013)	Loss 2.2502e+00 (2.2558e+00)	Acc@1  51.95 ( 50.26)	Acc@5  75.00 ( 74.22)
+Epoch: [1][2200/2503]	Time  1.230 ( 1.097)	Data  0.924 ( 0.765)	Loss 2.2502e+00 (2.2558e+00)	Acc@1  51.95 ( 50.26)	Acc@5  75.00 ( 74.22)
+Epoch: [1][2300/2503]	Time  1.265 ( 1.107)	Data  0.000 ( 0.002)	Loss 2.0971e+00 (2.2530e+00)	Acc@1  53.12 ( 50.30)	Acc@5  75.78 ( 74.25)
+Epoch: [1][2300/2503]	Time  1.269 ( 1.107)	Data  1.086 ( 0.219)	Loss 2.0971e+00 (2.2530e+00)	Acc@1  53.12 ( 50.30)	Acc@5  75.78 ( 74.25)
+Epoch: [1][2300/2503]	Time  1.256 ( 1.107)	Data  0.000 ( 0.012)	Loss 2.0971e+00 (2.2530e+00)	Acc@1  53.12 ( 50.30)	Acc@5  75.78 ( 74.25)
+Epoch: [1][2300/2503]	Time  1.272 ( 1.107)	Data  0.000 ( 0.750)	Loss 2.0971e+00 (2.2530e+00)	Acc@1  53.12 ( 50.30)	Acc@5  75.78 ( 74.25)
+Epoch: [1][2400/2503]	Time  1.254 ( 1.115)	Data  1.063 ( 0.255)	Loss 2.2693e+00 (2.2500e+00)	Acc@1  50.39 ( 50.36)	Acc@5  73.44 ( 74.30)
+Epoch: [1][2400/2503]	Time  1.255 ( 1.114)	Data  0.000 ( 0.012)	Loss 2.2693e+00 (2.2500e+00)	Acc@1  50.39 ( 50.36)	Acc@5  73.44 ( 74.30)
+Epoch: [1][2400/2503]	Time  1.252 ( 1.114)	Data  0.000 ( 0.718)	Loss 2.2693e+00 (2.2500e+00)	Acc@1  50.39 ( 50.36)	Acc@5  73.44 ( 74.30)
+Epoch: [1][2400/2503]	Time  1.279 ( 1.115)	Data  0.000 ( 0.002)	Loss 2.2693e+00 (2.2500e+00)	Acc@1  50.39 ( 50.36)	Acc@5  73.44 ( 74.30)
+Epoch: [1][2500/2503]	Time  1.145 ( 1.121)	Data  0.000 ( 0.002)	Loss 2.1790e+00 (2.2470e+00)	Acc@1  50.78 ( 50.41)	Acc@5  76.56 ( 74.34)
+Epoch: [1][2500/2503]	Time  1.145 ( 1.121)	Data  0.000 ( 0.690)	Loss 2.1790e+00 (2.2470e+00)	Acc@1  50.78 ( 50.41)	Acc@5  76.56 ( 74.34)
+Epoch: [1][2500/2503]	Time  1.145 ( 1.121)	Data  0.000 ( 0.011)	Loss 2.1790e+00 (2.2470e+00)	Acc@1  50.78 ( 50.41)	Acc@5  76.56 ( 74.34)
+Epoch: [1][2500/2503]	Time  1.145 ( 1.121)	Data  0.955 ( 0.288)	Loss 2.1790e+00 (2.2470e+00)	Acc@1  50.78 ( 50.41)	Acc@5  76.56 ( 74.34)
+Test: [  0/391]	Time  1.462 ( 1.462)	Loss 9.4232e-01 (9.4232e-01)	Acc@1  79.69 ( 79.69)	Acc@5  92.97 ( 92.97)
+Test: [  0/391]	Time  1.465 ( 1.465)	Loss 9.8629e-01 (9.8629e-01)	Acc@1  78.12 ( 78.12)	Acc@5  92.19 ( 92.19)
+Test: [  0/391]	Time  1.461 ( 1.461)	Loss 1.0466e+00 (1.0466e+00)	Acc@1  77.34 ( 77.34)	Acc@5  89.84 ( 89.84)
+Test: [  0/391]	Time  1.495 ( 1.495)	Loss 9.9894e-01 (9.9894e-01)	Acc@1  78.91 ( 78.91)	Acc@5  92.97 ( 92.97)
+Test: [100/391]	Time  1.258 ( 1.376)	Loss 1.1722e+00 (1.5484e+00)	Acc@1  67.97 ( 61.37)	Acc@5  92.19 ( 85.72)
+Test: [100/391]	Time  1.276 ( 1.377)	Loss 1.2015e+00 (1.5485e+00)	Acc@1  69.53 ( 61.63)	Acc@5  90.62 ( 85.07)
+Test: [100/391]	Time  1.282 ( 1.377)	Loss 1.1515e+00 (1.5584e+00)	Acc@1  70.31 ( 60.96)	Acc@5  90.62 ( 85.48)
+Test: [100/391]	Time  1.311 ( 1.377)	Loss 1.1395e+00 (1.5531e+00)	Acc@1  71.88 ( 61.15)	Acc@5  91.41 ( 85.57)
+Test: [200/391]	Time  1.114 ( 1.384)	Loss 2.3865e+00 (1.6670e+00)	Acc@1  42.97 ( 59.53)	Acc@5  70.31 ( 83.54)
+Test: [200/391]	Time  1.113 ( 1.384)	Loss 2.2653e+00 (1.6668e+00)	Acc@1  42.97 ( 59.37)	Acc@5  75.00 ( 83.92)
+Test: [200/391]	Time  1.130 ( 1.384)	Loss 2.2751e+00 (1.6685e+00)	Acc@1  42.97 ( 59.24)	Acc@5  73.44 ( 83.70)
+Test: [200/391]	Time  1.120 ( 1.384)	Loss 2.2478e+00 (1.6749e+00)	Acc@1  47.66 ( 59.19)	Acc@5  75.00 ( 83.73)
+Test: [300/391]	Time  1.268 ( 1.374)	Loss 1.8955e+00 (1.8339e+00)	Acc@1  63.28 ( 56.92)	Acc@5  79.69 ( 81.04)
+Test: [300/391]	Time  1.265 ( 1.374)	Loss 2.0165e+00 (1.8303e+00)	Acc@1  59.38 ( 57.03)	Acc@5  78.91 ( 80.85)
+Test: [300/391]	Time  1.252 ( 1.374)	Loss 1.8882e+00 (1.8351e+00)	Acc@1  64.84 ( 56.66)	Acc@5  78.91 ( 81.07)
+Test: [300/391]	Time  1.254 ( 1.374)	Loss 1.9349e+00 (1.8328e+00)	Acc@1  63.28 ( 56.75)	Acc@5  78.12 ( 80.90)
+ * Acc@1 55.768 Acc@5 79.976
+ * Acc@1 55.964 Acc@5 79.974
+ * Acc@1 55.622 Acc@5 80.134
+ * Acc@1 55.750 Acc@5 80.122
+Traceback (most recent call last):
+  File "application/imagenet_example/main.py", line 622, in <module>
+    main()
+  File "application/imagenet_example/main.py", line 177, in main
+    mp.spawn(main_worker, nprocs=ngpus_per_node, args=(ngpus_per_node, args))
+  File "/opt/conda/lib/python3.8/site-packages/torch/multiprocessing/spawn.py", line 230, in spawn
+    return start_processes(fn, args, nprocs, join, daemon, start_method='spawn')
+  File "/opt/conda/lib/python3.8/site-packages/torch/multiprocessing/spawn.py", line 188, in start_processes
+    while not context.join():
+  File "/opt/conda/lib/python3.8/site-packages/torch/multiprocessing/spawn.py", line 150, in join
+    raise ProcessRaisedException(msg, error_index, failed_process.pid)
+torch.multiprocessing.spawn.ProcessRaisedException: 
+
+-- Process 0 terminated with the following error:
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.8/site-packages/torch/multiprocessing/spawn.py", line 59, in _wrap
+    fn(i, *args)
+  File "/workspace/algo/XFY_MQBench/application/imagenet_example/main.py", line 358, in main_worker
+    os.makedirs(name=os.path.join(args.output_dir, 'ckpt',))
+  File "/opt/conda/lib/python3.8/os.py", line 223, in makedirs
+    mkdir(name, mode)
+FileExistsError: [Errno 17] File exists: '/workspace/service/outputs/f4ff5ba0-2642-41fb-9d7e-e36b3c30e8ed/ckpt'
+
+2023-07-28 15:52:52.076 run.py 64:	===================== Finish! ======================
