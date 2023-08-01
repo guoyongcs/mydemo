@@ -1,1 +1,1 @@
-https://github.com/pytorch/pytorch/blob/main/torch/fx/graph_module.py#L387
+https://github.com/ModelTC/MQBench/blob/main/mqbench/scheme.py#L31
