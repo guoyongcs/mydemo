@@ -95,3 +95,29 @@ def forward(self, x):
     relu_post_act_fake_quantizer = self.relu_post_act_fake_quantizer(relu);  relu = None
     fc1 = self.fc1(relu_post_act_fake_quantizer);  relu_post_act_fake_quantizer = None
     return fc1
+
+
+class ttt(nn.Module):
+    def __init__(self, scale=1):
+        super(ttt, self).__init__()
+        self.conv = nn.Conv2d(32, 2 * scale, 3, 1, 1)
+        self.conv1 = nn.Conv2d(2 * scale, 64 * scale, 3, 1, 1)
+        self.bn = nn.BatchNorm2d(64 * scale)
+        self.conv2 = nn.Conv2d(64 * scale, 8 * scale, 3, 1, 1)
+        self.conv_tranpose = nn.ConvTranspose2d(8 * scale, 4 * scale, kernel_size=3, stride=1, padding=(1, 1))
+        self.pool = nn.AdaptiveAvgPool2d((1, 1))
+        self.fc = nn.Linear(4 * scale, 10 * scale)
+        self.relu = nn.ReLU()
+        self.fc1 = nn.Linear(10 * scale, 10)
+
+    def forward(self, x):
+        x = self.conv(x)
+        x = self.conv1(x)
+        x = self.bn(x)
+        x = self.conv2(x)
+        x = self.conv_tranpose(x)
+        x = self.pool(x).view(x.shape[0], -1)
+        x = self.fc(x)
+        x = self.relu(x)
+        x = self.fc1(x)
+        return x
