@@ -1,1 +1,1 @@
-https://github.com/ModelTC/MQBench/blob/main/mqbench/custom_quantizer/academic_quantizer.py#L55
+https://openaccess.thecvf.com/content/CVPR2023/supplemental/Guo_Improving_Robustness_of_CVPR_2023_supplemental.pdf
