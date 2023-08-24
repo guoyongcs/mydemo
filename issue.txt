@@ -1,2 +1,1 @@
-Q-ViT: Accurate and Fully Quantized Low-bit Vision Transformer
-I-BERT: Integer-only BERT Quantization
+做综合评测时：选择相对安静的环境，保持平和心态作答。答题时注意前后一致，望你对未来持十分乐观的态度，遇事不焦虑，注意情绪把控，重视团队合作，能够适应公司快节奏的工作状态[呲牙]
