@@ -1,1 +1,1 @@
-https://github.com/NVlabs/FAN/blob/master/models/convnext_utils.py#L228
+https://docs.qualcomm.com/bundle/publicresource/topics/80-64748-1/model_updates.html
