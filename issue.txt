@@ -1,1 +1,3 @@
-https://www.overleaf.com/5193515785mdwygmjpvdsh#ca6a44
+  for name, param in self.model.named_parameters():
+      if param.grad is None:
+          print(idx, name)
