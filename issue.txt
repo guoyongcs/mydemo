@@ -1,1 +1,1 @@
-logger.info('Model created, param count: %d' % (sum([m.numel() for m in model.netG.parameters()])))
+https://github.com/DengZeshuai/DRNv2/blob/main/DCLS/codes/config/DCLS/models/blind_model.py#L180
