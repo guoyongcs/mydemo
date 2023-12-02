@@ -1,1 +1,1 @@
-https://leetcode.cn/studyplan/top-interview-150/
+logger.info('Model created, param count: %d' % (sum([m.numel() for m in model.netG.parameters()])))
