@@ -1,1 +1,1 @@
-https://github.com/DengZeshuai/DRNv2/blob/main/DCLS/codes/config/DCLS/models/blind_model.py#L180
+https://developers.google.com/mediapipe/solutions/vision/image_generator
