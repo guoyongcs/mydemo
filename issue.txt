@@ -1,1 +1,4 @@
-https://docs.google.com/spreadsheets/d/1Cf5CVz5wP9A5DsAPkPAf2z4r1L5CjLh61zrc--zZp6c/edit?usp=sharing
+0119_repvgg_train_per_channel_2bit
+0119_repvgg_train_per_channel_4bit
+0119_repvgg_deploy_withBN_per_channel_2bit
+
