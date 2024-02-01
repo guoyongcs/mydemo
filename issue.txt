@@ -1,13 +1,1 @@
-Calibrating layer: module.stage0.rbr_dense.conv
-Traceback (most recent call last):
-  File "train.py", line 613, in 
-    main()
-  File "train.py", line 450, in main
-    calibrate(train_loader, model, device, logger, args)
-  File "train.py", line 201, in calibrate
-    initializer_aw.quan_init(model, cali_loader, logger, args=args)
-  File "/workspace/algo/lsq_quantization/models/initializer_aw.py", line 194, in quan_init
-    quan_initializer.init_params()
-  File "/workspace/algo/lsq_quantization/models/initializer_aw.py", line 88, in init_params
-    os.mkdir(os.path.join(self.save_path, "weights",))
-FileExistsError: [Errno 17] File exists: '/workspace/service/outputs/72f27614-d3a7-41f5-af9e-199a7553ffde/log_0130_repvgg_train_per_channel_lr002_wup5_qaWithZero_8bit/weights'
+0130_repvgg_train_per_channel_lr002_wup5_qaWithZero_8bit
