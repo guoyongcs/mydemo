@@ -1,1 +1,1 @@
-0130_repvgg_train_per_channel_lr002_wup5_qaWithZero_8bit
+torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
