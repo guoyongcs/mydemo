@@ -1,1 +1,1 @@
-torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
+model.safetensors  optimizer.bin  pytorch_lora_weights.safetensors  random_states_0.pkl  scheduler.bin
